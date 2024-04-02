@@ -58,10 +58,6 @@ class Element:
         # At this point, `element` is a string
         element = str(element).title()
 
-        valid_string_inputs = self.valid_names.union(self.valid_symbols)
-        if element not in valid_string_inputs:
-            raise ValueError(f"Element {element} is not valid.")
-
         if element in self.valid_symbols:
             self.element = element
         elif element in self.valid_names:
@@ -71,7 +67,10 @@ class Element:
         return self.symbol
 
     def __repr__(self) -> str:
-        return f"< {self.name} >"
+        try:
+            return f"< {self.name} >"
+        else:
+            return f"< {self.element} >"
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Element):
@@ -86,11 +85,17 @@ class Element:
     @property
     def element_full(self) -> str:
         """Full element name, e.g. "Hydrogen" """
+        valid_string_inputs = self.valid_names.union(self.valid_symbols)
+        if element not in valid_string_inputs:
+            raise ValueError(f"Element {element} is not valid.")
         return self.name
 
     @property
     def name(self) -> str:
         """Full element name, e.g. "Hydrogen" """
+        valid_string_inputs = self.valid_names.union(self.valid_symbols)
+        if element not in valid_string_inputs:
+            raise ValueError(f"Element {element} is not valid.")
         return ELEM_TO_NAME[self.element]
 
     @property
@@ -101,16 +106,25 @@ class Element:
     @property
     def atomic_number(self) -> int:
         """Atomic number"""
+        valid_string_inputs = self.valid_names.union(self.valid_symbols)
+        if element not in valid_string_inputs:
+            raise ValueError(f"Element {element} is not valid.")
         return ELEM_TO_NUM[self.element]
 
     @property
     def mass(self) -> float:
         """Atomic mass [u]"""
+        valid_string_inputs = self.valid_names.union(self.valid_symbols)
+        if element not in valid_string_inputs:
+            raise ValueError(f"Element {element} is not valid.")
         return ELEM_TO_MASS[self.element]
 
     @property
     def magnetic_moment_ground(self) -> float:
         """Ground state magnetic moment."""
+        valid_string_inputs = self.valid_names.union(self.valid_symbols)
+        if element not in valid_string_inputs:
+            raise ValueError(f"Element {element} is not valid.")
         return ELEM_TO_MAGMOM.get(self.element, None)
 
 
